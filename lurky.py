@@ -1,4 +1,9 @@
+# Lurky v 1.1 - chat monitor
+# empty_circle - 2023
+# The author isn't liable for you or the things you do with this software. Follow ethics and the law.
+
 import requests
+import html
 import json
 from bs4 import BeautifulSoup
 from websocket import WebSocketApp
@@ -24,7 +29,8 @@ def on_open(ws):
 
 def on_message(ws, message):
     data = json.loads(message)
-    print(f"Received a message: {data}")
+    sanitized_message = html.escape(data['message'])
+    print(f"Received a sanitized message: {sanitized_message}")
 
 
 def on_error(ws, error):
